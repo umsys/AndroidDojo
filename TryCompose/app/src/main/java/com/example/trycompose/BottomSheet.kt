@@ -42,7 +42,7 @@ fun BottomSheet(
                         )
                         .clickable {
                             coroutineScope.launch {
-                                modalBottomSheetState.show()
+                                modalBottomSheetState.hide()
                             }
                         })
                 Spacer(modifier = Modifier.height(50.dp))
