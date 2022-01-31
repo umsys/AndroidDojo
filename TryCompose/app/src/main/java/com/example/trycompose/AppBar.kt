@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun AppBar(bottomSheetState: BottomSheetScaffoldState) {
+fun AppBar(modalBottomSheetState: ModalBottomSheetState) {
     val scope = rememberCoroutineScope()
     Column(
         horizontalAlignment = Alignment.End,
@@ -37,10 +37,10 @@ fun AppBar(bottomSheetState: BottomSheetScaffoldState) {
                 .size(40.dp)
                 .clickable {
                     scope.launch {
-                        if (bottomSheetState.bottomSheetState.isCollapsed) {
-                            bottomSheetState.bottomSheetState.expand()
+                        if (modalBottomSheetState.isVisible) {
+                            modalBottomSheetState.hide()
                         } else {
-                            bottomSheetState.bottomSheetState.collapse()
+                            modalBottomSheetState.show()
                         }
                     }
                 }
@@ -54,8 +54,8 @@ fun AppBar(bottomSheetState: BottomSheetScaffoldState) {
 fun PreviewAppBar() {
     TryComposeTheme {
         AppBar(
-            rememberBottomSheetScaffoldState(
-                bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
+            rememberModalBottomSheetState(
+                ModalBottomSheetValue.Hidden
             )
         )
     }

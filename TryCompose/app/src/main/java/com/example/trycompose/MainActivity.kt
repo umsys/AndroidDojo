@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.BottomSheetState
-import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.runtime.rememberCoroutineScope
 import com.example.trycompose.ui.theme.TryComposeTheme
 
@@ -17,17 +16,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TryComposeTheme {
-                val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-                    bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
+                val modalBottomSheetState = rememberModalBottomSheetState(
+                    ModalBottomSheetValue.Hidden
                 )
                 val coroutineScope = rememberCoroutineScope()
 
                 BottomSheet(
                     coroutineScope = coroutineScope,
-                    bottomSheetScaffoldState = bottomSheetScaffoldState,
+                    modalBottomSheetState = modalBottomSheetState,
                 ) {
                     Column {
-                        AppBar(bottomSheetScaffoldState)
+                        AppBar(modalBottomSheetState)
                         Conversation(SampleData.conversationSample)
                     }
                 }

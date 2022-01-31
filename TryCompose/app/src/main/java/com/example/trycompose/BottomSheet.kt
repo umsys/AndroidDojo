@@ -22,11 +22,11 @@ import kotlinx.coroutines.launch
 @Composable
 fun BottomSheet(
     coroutineScope: CoroutineScope,
-    bottomSheetScaffoldState: BottomSheetScaffoldState,
+    modalBottomSheetState: ModalBottomSheetState,
     content: @Composable () -> Unit
 ) {
-    BottomSheetScaffold(
-        scaffoldState = bottomSheetScaffoldState,
+    ModalBottomSheetLayout(
+        sheetState = modalBottomSheetState,
         sheetContent = {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -42,13 +42,12 @@ fun BottomSheet(
                         )
                         .clickable {
                             coroutineScope.launch {
-                                bottomSheetScaffoldState.bottomSheetState.collapse()
+                                modalBottomSheetState.show()
                             }
                         })
                 Spacer(modifier = Modifier.height(50.dp))
             }
         },
-        sheetPeekHeight = 0.dp,
         sheetShape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
         sheetBackgroundColor = Color(0xfff5f5f5)
     ) {
@@ -63,14 +62,14 @@ fun PreviewBottomSheet() {
     TryComposeTheme {
         BottomSheet(
             coroutineScope = rememberCoroutineScope(),
-            bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
-                bottomSheetState = BottomSheetState(BottomSheetValue.Expanded)
+            modalBottomSheetState = rememberModalBottomSheetState(
+                ModalBottomSheetValue.Expanded
             )
         ) {
             Column {
                 AppBar(
-                    rememberBottomSheetScaffoldState(
-                        bottomSheetState = BottomSheetState(BottomSheetValue.Expanded)
+                    rememberModalBottomSheetState(
+                        ModalBottomSheetValue.Expanded
                     )
                 )
                 Conversation(SampleData.conversationSample)
